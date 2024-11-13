@@ -1,0 +1,10 @@
+# Ignore all
+*
+
+# Allow sources
+!/exe/sampler.rb
+!/lib
+!/samples
+
+# Ignore backups
+**/*~

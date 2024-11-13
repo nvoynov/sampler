@@ -1,0 +1,10 @@
+.gitingore
+**/*~
+*.log
+
+.punch
+punch.*
+
+sandbox.*
+
+out

@@ -1,0 +1,144 @@
+{
+  "options": {
+    "pack_params": false,
+    "write_byref": false
+  },
+  "commands": [
+    {
+      "name": "wite_some_code",
+      "desc": "command that write opcode",
+      "opcode": [42], 
+      "args": [],
+      "results": [],
+      "delay": 50
+    },
+    {
+      "name": "write_some_data",
+      "desc": "command that write data",
+      "opcode": [42], 
+      "args": [
+        {
+          "name": "foo",
+          "type": "foo_t",
+          "desc": "parameter foo to write to the bus",
+          "size": 8
+        }  
+      ],
+      "results": [],
+      "delay": 0
+    },
+    {
+      "name": "write_more_data",
+      "desc": "command that write more data",
+      "opcode": [42], 
+      "args": [
+        {
+          "name": "foo",
+          "type": "foo_t",
+          "desc": "parameter foo to write to the bus",
+          "size": 8
+        },  
+        {
+          "name": "bar",
+          "type": "bar_t",
+          "desc": "parameter bar to write to the bus",
+          "size": 8
+        }  
+      ],
+      "results": [],
+      "delay": 0
+    },    
+    {
+      "name": "read_some_data",
+      "desc": "command that reads data",
+      "opcode": [42],
+      "args": [], 
+      "results": [
+        {
+          "name": "foo",
+          "type": "foo_t",
+          "desc": "parameter foo to read from the bus",
+          "size": 8
+        }  
+      ],
+      "delay": 0
+    },
+    {
+      "name": "read_more_data",
+      "desc": "command that read more data",
+      "opcode": [42], 
+      "args": [],
+      "results": [
+        {
+          "name": "foo",
+          "type": "foo_t",
+          "desc": "parameter foo to read from the bus",
+          "size": 8
+        },  
+        {
+          "name": "bar",
+          "type": "bar_t",
+          "desc": "parameter bar to read from the bus",
+          "size": 8
+        }  
+      ],
+      "delay": 0
+    },    
+    {
+      "name": "write and read",
+      "desc": "the command for writing and reading data",
+      "opcode": [42], 
+      "args": [
+        {
+          "name": "foo",
+          "type": "foo_t",
+          "desc": "parameter foo to write to the bus",
+          "size": 8
+        }  
+      ],
+      "results": [
+        {
+          "name": "bar",
+          "type": "bar_t",
+          "desc": "parameter bar to read from the bus",
+          "size": 8
+        }  
+      ],
+      "delay": 0
+    },
+    {
+      "name": "write and read more",
+      "desc": "the command for writing and reading more complex data",
+      "opcode": [42], 
+      "args": [
+        {
+          "name": "foo",
+          "type": "foo_t",
+          "desc": "parameter foo to write to the bus",
+          "size": 8
+        },  
+        {
+          "name": "bar",
+          "type": "bar_t",
+          "desc": "parameter bar to write to the bus",
+          "size": 8
+        }  
+      ],
+      "results": [
+        {
+          "name": "baz",
+          "type": "baz_t",
+          "desc": "parameter baz to read from the bus",
+          "size": 8
+        },  
+        {
+          "name": "qux",
+          "type": "qux_t",
+          "desc": "parameter qux to read from the bus",
+          "size": 8
+        }  
+      ],
+      "delay": 0
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "just dummy",
+  "vendor": "some vendor",
+  "classes": [
+    {
+      "name": "Alphe Bravo",
+      "desc": "Alphe Bravo Memory Page",
+      "types": [
+        {
+          "name": "really something",
+          "type": "int",
+          "size": 8
+        },
+        {
+          "name": "foo",
+          "type": "int",
+          "size": 8
+        }
+      ]
+    }
+  ]
+}

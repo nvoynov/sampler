@@ -1,0 +1,67 @@
+%#
+%# Sampler template example
+%#
+% prefix  = 'demo'
+% options = model.options
+// The content generated at <%= Time.now %> using Sampler
+// with the following options provided:
+<%= options.to_h.map{|k, v| "//   #{k}: #{v}" }.join(?\n) %>
+
+% model.commands.each do |command|
+%   args = command.args.map{|e| "#{e.type} #{e.name}" }
+%   rslt = command.results.map{|e| "#{e.type}* #{e.name}" }
+%   write_size = command.opcode.size * 8 + command.args.map(&:size).sum
+%   read_size = command.results.map(&:size).sum
+%   sign = (args + rslt)
+%     .unshift('const struct device *dev')               
+%     .join(', ')
+%
+// <%= command.desc %>
+static int <%= mkid(prefix + ?\s + command.name) %>(<%= sign %>)
+{
+    struct <%= prefix %>_data *data = dev->data;
+    const struct <%= prefix %>_config *cfg = dev->config;
+    int rc;
+    
+%# Calculate buffer sizes based on command definition
+    uint8_t tx_buf[<%= write_size / 8 %>];
+% if read_size > 0    
+    uint8_t rx_buf[<%= read_size / 8 %>];
+% end #if
+    uint8_t *p = tx_buf;
+
+%# Pack command opcode
+% command.opcode.each do |code|
+    *p++ = <%= code %>;
+% end #command.opcode.each
+%# Pack arguments
+% command.args.each do |para|
+    *p++ = <%= para.name %>;
+% end #command.args.each
+%# Send command and arguments
+    rc = i2c_write_dt(&cfg->bus, tx_buf, sizeof(tx_buf));
+    if (rc < 0) {
+        LOG_ERR("Failed to write command");
+        return rc;
+    }
+%# Add delay if specified
+% if command.delay > 0
+    k_sleep(K_MSEC(<%= command.delay %>));
+% end #if command.delay > 0
+%# Read result if any
+% if command.results.any?
+
+    rc = i2c_read_dt(&cfg->bus, rx_buf, sizeof(rx_buf));
+    if (rc < 0) {
+        LOG_ERR("Failed to read result");
+        return rc;
+    }
+% command.results.each_with_index do |para, index|
+    *<%= para.name %> = rx_buf[<%= index %>];
+% end #command.results.each        
+% end #if command.results.any?
+
+    return 0;
+}
+
+% end #commands.each
